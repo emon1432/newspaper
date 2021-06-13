@@ -1,11 +1,12 @@
-<div id ="footer">
+<div id="footer">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <span>© Copyright 2019 News | Powered by <a href="http://www.yahoobaba.net/">Yahoo Baba</a></span>
+                <span>© Copyright 2021 News | Powered by <a href="https://github.com/emon1432">Md.Khairul Islam Emon</a></span>
             </div>
         </div>
     </div>
 </div>
 </body>
+
 </html>
