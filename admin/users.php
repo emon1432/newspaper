@@ -1,4 +1,9 @@
-<?php include "header.php"; ?>
+<?php include "header.php";
+include 'config.php';
+if ($_SESSION["user_role"] == '0') {
+    header("Location: {$hostname}/admin/post.php");
+}
+?>
 <div id="admin-content">
     <div class="container">
         <div class="row">
@@ -61,7 +66,7 @@
                     $total_page = ceil($total_records / $limit);
                     echo '<ul class="pagination admin-pagination">';
                     if ($page > 1) {
-                        echo '<li><a href="users.php?page='.($page-1).'">Prev</a></li>';
+                        echo '<li><a href="users.php?page=' . ($page - 1) . '">Prev</a></li>';
                     }
                     for ($i = 1; $i <= $total_page; $i++) {
                         if ($i == $page) {
@@ -72,7 +77,7 @@
                         echo '<li class="' . $active . '"><a href="users.php?page=' . $i . '">' . $i . '</a></li>';
                     }
                     if ($total_page > $page) {
-                        echo '<li><a href="users.php?page='.($page+1).'">Next</a></li>';
+                        echo '<li><a href="users.php?page=' . ($page + 1) . '">Next</a></li>';
                     }
                     echo '</ul>';
                 }

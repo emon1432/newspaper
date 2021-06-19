@@ -1,4 +1,8 @@
 <?php include "header.php";
+include 'config.php';
+if ($_SESSION["user_role"] == '0') {
+    header("Location: {$hostname}/admin/post.php");
+}
 if (isset($_POST['save'])) {
     include 'config.php';
 
@@ -6,12 +10,12 @@ if (isset($_POST['save'])) {
 
     $sql = "SELECT category_name FROM category WHERE category_name = '{$category_name}'";
     $result = mysqli_query($conn, $sql) or die("Query Failed!!!");
-    if(mysqli_num_rows($result)>0){
+    if (mysqli_num_rows($result) > 0) {
         echo "<p style='color:red;text-align:center;margin:10px 0;'>Category already availabe!!!</p>";
-    }else{
+    } else {
         $sql1 = "INSERT INTO category (category_name)
         VALUES('{$category_name}')";
-        if(mysqli_query($conn,$sql1)){
+        if (mysqli_query($conn, $sql1)) {
             header("Location: {$hostname}/admin/category.php");
         }
     }

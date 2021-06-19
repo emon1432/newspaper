@@ -1,4 +1,8 @@
 <?php include "header.php";
+include 'config.php';
+if ($_SESSION["user_role"] == '0') {
+    header("Location: {$hostname}/admin/post.php");
+}
 if (isset($_POST['submit'])) {
     include 'config.php';
     $category_name = mysqli_real_escape_string($conn, $_POST['cat_name']);

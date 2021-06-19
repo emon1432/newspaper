@@ -1,4 +1,9 @@
-<?php include "header.php"; ?>
+<?php include "header.php";
+include 'config.php';
+if ($_SESSION["user_role"] == '0') {
+    header("Location: {$hostname}/admin/post.php");
+}
+?>
 <div id="admin-content">
     <div class="container">
         <div class="row">
@@ -12,12 +17,12 @@
                 <?php
                 include 'config.php';
                 $limit = 3;
-                if(isset($_GET['page'])){
+                if (isset($_GET['page'])) {
                     $page = $_GET['page'];
-                }else{
+                } else {
                     $page = 1;
                 }
-                $offset = ($page-1)* $limit;
+                $offset = ($page - 1) * $limit;
                 $sql = "SELECT * FROM category ORDER BY category_id ASC LIMIT {$offset},{$limit}";
                 $result = mysqli_query($conn, $sql) or die("Query Failed!!!");
                 if (mysqli_num_rows($result) > 0) {
@@ -35,11 +40,11 @@
                             while ($row = mysqli_fetch_assoc($result)) {
                             ?>
                                 <tr>
-                                    <td class='id'><?php echo $row['category_id'];?></td>
-                                    <td><?php echo $row['category_name'];?></td>
-                                    <td><?php echo $row['post'];?></td>
-                                    <td class='edit'><a href='update-category.php?id=<?php echo $row['category_id'];?>'><i class='fa fa-edit'></i></a></td>
-                                    <td class='delete'><a href='delete-category.php?id=<?php echo $row['category_id'];?>'><i class='fa fa-trash-o'></i></a></td>
+                                    <td class='id'><?php echo $row['category_id']; ?></td>
+                                    <td><?php echo $row['category_name']; ?></td>
+                                    <td><?php echo $row['post']; ?></td>
+                                    <td class='edit'><a href='update-category.php?id=<?php echo $row['category_id']; ?>'><i class='fa fa-edit'></i></a></td>
+                                    <td class='delete'><a href='delete-category.php?id=<?php echo $row['category_id']; ?>'><i class='fa fa-trash-o'></i></a></td>
                                 </tr>
                             <?php } ?>
                         </tbody>
@@ -53,7 +58,7 @@
                     $total_page = ceil($total_records / $limit);
                     echo '<ul class="pagination admin-pagination">';
                     if ($page > 1) {
-                        echo '<li><a href="category.php?page='.($page-1).'">Prev</a></li>';
+                        echo '<li><a href="category.php?page=' . ($page - 1) . '">Prev</a></li>';
                     }
                     for ($i = 1; $i <= $total_page; $i++) {
                         if ($i == $page) {
@@ -64,14 +69,14 @@
                         echo '<li class="' . $active . '"><a href="category.php?page=' . $i . '">' . $i . '</a></li>';
                     }
                     if ($total_page > $page) {
-                        echo '<li><a href="category.php?page='.($page+1).'">Next</a></li>';
+                        echo '<li><a href="category.php?page=' . ($page + 1) . '">Next</a></li>';
                     }
                     echo '</ul>';
                 }
                 ?>
 
-                    <!-- <li class="active"><a>1</a></li> -->
-                   
+                <!-- <li class="active"><a>1</a></li> -->
+
             </div>
         </div>
     </div>
