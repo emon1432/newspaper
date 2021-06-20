@@ -2,11 +2,6 @@
 include 'config.php';
 if(isset($_FILES['fileToUpload'])){
     $errors = array();
-
-    // echo "<pre>";
-    // print_r($_FILES);
-    // echo "</pre>";
-
     $file_name = $_FILES['fileToUpload']['name'];
     $file_size = $_FILES['fileToUpload']['size'];
     $file_tmp = $_FILES['fileToUpload']['tmp_name'];
@@ -14,16 +9,14 @@ if(isset($_FILES['fileToUpload'])){
     $file_ext = strtolower(end(explode('.',$file_name)));
     $extensions = array("jpeg","jpg","png");
 
-    if(in_array($file_ext,$extensions)=== false){
+    if(in_array($file_ext,$extensions) === false){
         $errors[] = "This extension file not allowed, Please choose a JPG or PNG file.";
     }
     if($file_size > 2097152){
         $errors[] = "File size must be 2mb or lower.";
     }
     if(empty($errors)==true){
-       
-        move_uploaded_file($file_name,"/opt/lampp/htdocs/newspaper/admin/upload/");
-       
+        move_uploaded_file($file_tmp,"/opt/lampp/htdocs/newspaper/admin/upload/".$file_name);
     }
     else{
         print_r($errors);
@@ -46,5 +39,4 @@ if(mysqli_multi_query($conn,$sql)){
 }else{
     echo "<div class='alert alert-danger'>Query Failed!!!</div>";
 }
-
 ?>
