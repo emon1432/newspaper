@@ -16,7 +16,7 @@ if(isset($_FILES['fileToUpload'])){
         $errors[] = "File size must be 2mb or lower.";
     }
     if(empty($errors)==true){
-        move_uploaded_file($file_tmp,"/opt/lampp/htdocs/newspaper/admin/upload/".$file_name);
+        move_uploaded_file($file_tmp,"upload/".$file_name);
     }
     else{
         print_r($errors);
