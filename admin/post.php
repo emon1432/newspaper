@@ -17,6 +17,7 @@
                 } else {
                     $page = 1;
                 }
+                // $sql;
                 // session_start();
                 $offset = ($page - 1) * $limit;
                 if ($_SESSION["user_role"] == '1') {
@@ -63,11 +64,21 @@
                     </table>
                 <?php
                 }
-                
-                $sql1 = "SELECT * FROM post";
+                if ($_SESSION["user_role"] == '1') {
+                    $sql1 = "SELECT * FROM post
+                LEFT JOIN category ON post.category = category.category_id
+                LEFT JOIN user ON post.author = user.user_id";
+                } elseif ($_SESSION["user_role"] == '0') {
+                    $sql1 = "SELECT * FROM post
+                LEFT JOIN category ON post.category = category.category_id
+                LEFT JOIN user ON post.author = user.user_id
+                WHERE post.author = {$_SESSION["user_id"]}";
+                }
+                // $sql1 = "SELECT * FROM post";
                 $result1 = mysqli_query($conn, $sql1) or die("Query Failed!!!");
                 if (mysqli_num_rows($result1) > 0) {
                     $total_records = mysqli_num_rows($result1);
+                    // echo $total_records;
                     $total_page = ceil($total_records / $limit);
                     echo '<ul class="pagination admin-pagination">';
                     if ($page > 1) {
