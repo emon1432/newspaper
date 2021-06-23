@@ -8,6 +8,9 @@
 
                     <?php
                     include "config.php";
+                    if (isset($_GET['cat_id'])) {
+                        $cat_id = $_GET['cat_id'];
+                    }
                     $post_id = $_GET['id'];
 
 
@@ -26,7 +29,7 @@
                                 <div class="post-information">
                                     <span>
                                         <i class="fa fa-tags" aria-hidden="true"></i>
-                                        <?php echo $row['category_name']; ?>
+                                        <a href='category.php?cat_id=<?php echo $row['category']; ?>'><?php echo $row['category_name']; ?></a>
                                     </span>
                                     <span>
                                         <i class="fa fa-user" aria-hidden="true"></i>
