@@ -13,7 +13,7 @@
                     <h2 class="page-heading"><?php echo $row1['category_name']; ?></h2>
                     <?php
                     include "config.php";
-                    if (isset($_GET['cat_id'])) {
+                    if (isset($_GET['cat_id'])) { 
                         $cat_id = $_GET['cat_id'];
                     }
 
@@ -27,10 +27,10 @@
                     $offset = ($page - 1) * $limit;
 
                     $sql = "SELECT * FROM post
-                LEFT JOIN category ON post.category = category.category_id
-                LEFT JOIN user ON post.author = user.user_id
-                WHERE category = {$cat_id}
-                ORDER BY post_id DESC LIMIT {$offset},{$limit}";
+                    LEFT JOIN category ON post.category = category.category_id
+                    LEFT JOIN user ON post.author = user.user_id
+                    WHERE category = {$cat_id}
+                    ORDER BY post_id DESC LIMIT {$offset},{$limit}";
 
                     $result = mysqli_query($conn, $sql) or die("Query Failed!!!");
                     if (mysqli_num_rows($result) > 0) {
@@ -52,7 +52,7 @@
                                                 </span>
                                                 <span>
                                                     <i class="fa fa-user" aria-hidden="true"></i>
-                                                    <a href='author.php'><?php echo $row['first_name'] . " " . $row['last_name']; ?></a>
+                                                    <a href='author.php?a_id=<?php echo $row['author']; ?>'><?php echo $row['first_name'] . " " . $row['last_name']; ?></a>
                                                 </span>
                                                 <span>
                                                     <i class="fa fa-calendar" aria-hidden="true"></i>
