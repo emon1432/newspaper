@@ -1,3 +1,42 @@
+<?php
+
+include 'config.php';
+$page = basename($_SERVER['PHP_SELF']);
+function sql_query_run($conn, $sql_title)
+{
+    $result_title = mysqli_query($conn, $sql_title) or die("Title Query Failed!!!");
+    return $row_title = mysqli_fetch_assoc($result_title);
+}
+switch ($page) {
+    case "single.php":
+        if (isset($_GET['id'])) {
+            $sql_title = "SELECT * FROM post WHERE post_id = {$_GET['id']}";
+            $page_title = sql_query_run($conn, $sql_title)['title'];
+        }
+        break;
+    case "category.php":
+        if (isset($_GET['cat_id'])) {
+            $sql_title = "SELECT * FROM category WHERE category_id = {$_GET['cat_id']}";
+            $page_title = sql_query_run($conn, $sql_title)['category_name'];
+        }
+        break;
+    case "author.php":
+        if (isset($_GET['a_id'])) {
+            $sql_title = "SELECT * FROM user WHERE user_id = {$_GET['a_id']}";
+            $page_title = sql_query_run($conn, $sql_title)['first_name'] . " " . sql_query_run($conn, $sql_title)['last_name'];
+        }
+        break;
+    case "search.php":
+        if (isset($_GET['search'])) {
+            $sql_title = "SELECT * FROM user WHERE user_id = {$_GET['a_id']}";
+            $page_title = $_GET['search'];
+        }
+        break;
+    default:
+        $page_title = "Newspaper";
+        break;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +45,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>News</title>
+    <title><?php echo $page_title; ?></title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <!-- Font Awesome Icon -->
