@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 27, 2021 at 04:10 PM
+-- Generation Time: Jun 27, 2021 at 07:33 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -39,14 +39,14 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`category_id`, `category_name`, `post`) VALUES
 (1, 'C', 1),
-(2, 'C++', 4),
-(11, 'Javascript', 4),
+(2, 'C++', 3),
+(11, 'Javascript', 6),
 (4, 'JAVA', 1),
 (5, 'HTML', 1),
 (12, 'PHP', 3),
 (9, 'Node JS', 1),
 (10, 'CSS', 1),
-(3, 'Python', 0),
+(3, 'Python', 1),
 (6, 'C#', 0),
 (7, 'Ruby', 0),
 (8, 'SQL', 0);
@@ -83,11 +83,13 @@ INSERT INTO `post` (`post_id`, `title`, `description`, `category`, `post_date`, 
 (16, 'Old is Gold', 'Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It is a general-purpose programming language intended to let application developers write once, run anywhere (WORA),[16] meaning that compiled Java code can run on all platforms that support Java without the need for recompilation.[17] Java applications are typically compiled to bytecode that can run on any Java virtual machine (JVM) regardless of the underlying computer architecture. The syntax of Java is similar to C and C++, but has fewer low-level facilities than either of them. The Java runtime provides dynamic capabilities (such as reflection and runtime code modification) that are typically not available in traditional compiled languages. As of 2019, Java was one of the most popular programming languages in use according to GitHub,[18][19] particularly for client-server web applications, with a reported 9 million developers.[20]\r\n\r\nJava was originally developed by James Gosling at Sun Microsystems (which has since been acquired by Oracle) and released in 1995 as a core component of Sun Microsystems\' Java platform. The original and reference implementation Java compilers, virtual machines, and class libraries were originally released by Sun under proprietary licenses. As of May 2007, in compliance with the specifications of the Java Community Process, Sun had relicensed most of its Java technologies under the GNU General Public License. Oracle offers its own HotSpot Java Virtual Machine, however the official reference implementation is the OpenJDK JVM which is free open source software and used by most developers and is the default JVM for almost all Linux distributions.\r\n\r\nAs of March 2021, the latest version is Java 16, with Java 11, a currently supported long-term support (LTS) version, released on September 25, 2018. Oracle released the last zero-cost public update for the legacy version Java 8 LTS in January 2019 for commercial use, although it will otherwise still support Java 8 with public updates for personal use indefinitely. Other vendors have begun to offer zero-cost builds of OpenJDK 8 and 11 that are still receiving security and other upgrades.\r\n\r\nOracle (and others) highly recommend uninstalling outdated versions of Java because of serious risks due to unresolved security issues.[21] Since Java 9, 10, 12, 13, 14, and 15 are no longer supported, Oracle advises its users to immediately transition to the latest version (currently Java 16) or an LTS release', '4', '22 Jun, 2021', 6, 'java.png'),
 (17, 'My Favorite', '                        My favorite language is Javascript. It is toy language. Interesting too.                ', '11', '22 Jun, 2021', 6, 'javascript.png'),
 (18, 'best ', 'dfgfdgdfvfdgtertertre', '11', '23 Jun, 2021', 1, 'javascript.png'),
-(19, 'fdgfd', 'gdfgfdg', '11', '23 Jun, 2021', 1, 'javascript.png'),
+(19, 'fdgfd', '                                                gdfgfdg                                ', '11', '23 Jun, 2021', 1, 'javascript.png'),
 (20, 'hfghfgh', 'ghgfhfg', '2', '23 Jun, 2021', 1, 'c++.png'),
 (21, 'hfghdhgf', 'hfhfgh', '2', '23 Jun, 2021', 1, 'c++.png'),
-(22, 'fgdhfghf', 'ghhgfh', '2', '23 Jun, 2021', 1, 'c++.png'),
-(23, 'Funny Language', 'Php is the best  of all,', '12', '24 Jun, 2021', 1, 'php.jpeg');
+(22, 'Strong', '                        Python is one of the powerful language                ', '3', '23 Jun, 2021', 1, 'Python-language.png'),
+(23, 'Funny Language', 'Php is the best  of all,', '12', '24 Jun, 2021', 1, 'php.jpeg'),
+(25, 'Javascript', 'Just test', '11', '27 Jun, 2021', 1, 'javascript.png'),
+(26, 'New test', 'shfkashf', '11', '27 Jun, 2021', 1, 'javascript.png');
 
 -- --------------------------------------------------------
 
@@ -106,7 +108,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`websitename`, `logo`, `footerdesc`) VALUES
-('Programmer Wold', 'programmer world.jpeg', '© Copyright 2021 Programmer World | Powered by Md.Khairul Islam Emon');
+('Programmer Wold', 'programmer world.jpeg', '© Copyright 2021 Programmer World | Powered by <a href=\"https://github.com/emon1432\">Md.Khairul Islam Emon</a>');
 
 -- --------------------------------------------------------
 
@@ -133,7 +135,8 @@ INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `username`, `password`
 (3, 'Abu Huzaifa ', 'As-Sahmi', 'saikat', 'e10adc3949ba59abbe56e057f20f883e', 0),
 (4, 'Priyanka Rani', 'Ghosh', 'pghosh', 'e10adc3949ba59abbe56e057f20f883e', 0),
 (5, 'Naimul Islam', 'Naim', 'naimon', 'e10adc3949ba59abbe56e057f20f883e', 0),
-(6, 'Alem Hossain', 'Hasib', 'lms', 'e10adc3949ba59abbe56e057f20f883e', 0);
+(6, 'Alem Hossain', 'Hasib', 'lms', 'e10adc3949ba59abbe56e057f20f883e', 0),
+(7, 'Ayesha Akter', 'Toma', 'shadhona', 'e10adc3949ba59abbe56e057f20f883e', 0);
 
 --
 -- Indexes for dumped tables
@@ -172,13 +175,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
