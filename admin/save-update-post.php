@@ -9,7 +9,9 @@ if(empty($_FILES['new-image']['name'])){
     $file_size = $_FILES['new-image']['size'];
     $file_tmp = $_FILES['new-image']['tmp_name'];
     $file_type = $_FILES['new-image']['type'];
-    $file_ext = strtolower(end(explode('.',$file_name)));
+    $exp = explode('.',$file_name);
+    $end = end($exp);
+    $file_ext = strtolower($end);
     $extensions = array("jpeg","jpg","png");
 
     if(in_array($file_ext,$extensions) === false){

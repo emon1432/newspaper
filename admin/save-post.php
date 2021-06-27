@@ -6,7 +6,9 @@ if(isset($_FILES['fileToUpload'])){
     $file_size = $_FILES['fileToUpload']['size'];
     $file_tmp = $_FILES['fileToUpload']['tmp_name'];
     $file_type = $_FILES['fileToUpload']['type'];
-    $file_ext = strtolower(end(explode('.',$file_name)));
+    $exp = explode('.',$file_name);
+    $end = end($exp);
+    $file_ext = strtolower($end);
     $extensions = array("jpeg","jpg","png");
 
     if(in_array($file_ext,$extensions) === false){
