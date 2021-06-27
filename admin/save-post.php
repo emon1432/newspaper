@@ -17,8 +17,9 @@ if(isset($_FILES['fileToUpload'])){
     if($file_size > 2097152){
         $errors[] = "File size must be 2mb or lower.";
     }
+    $target = "upload/". time(). "-".$file_name;
     if(empty($errors)==true){
-        move_uploaded_file($file_tmp,"upload/".$file_name);
+        move_uploaded_file($file_tmp,$target);
     }
     else{
         print_r($errors);
@@ -41,4 +42,3 @@ if(mysqli_multi_query($conn,$sql)){
 }else{
     echo "<div class='alert alert-danger'>Query Failed!!!</div>";
 }
-?>
