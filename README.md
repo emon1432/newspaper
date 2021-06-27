@@ -1,1 +1,1 @@
-A sample of newspaper website.
+A sample of programming news website.
