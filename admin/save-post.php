@@ -17,6 +17,7 @@ if(isset($_FILES['fileToUpload'])){
     if($file_size > 2097152){
         $errors[] = "File size must be 2mb or lower.";
     }
+    $img_name = time(). "-".$file_name;
     $target = "upload/". time(). "-".$file_name;
     if(empty($errors)==true){
         move_uploaded_file($file_tmp,$target);
@@ -34,7 +35,7 @@ $date = date("d M, Y");
 $author = $_SESSION['user_id'];
 
 $sql = "INSERT INTO post(title,description,category,post_date,author,post_img)
-        VALUES('{$title}','{$description}',{$category},'{$date}',{$author},'{$file_name}');";
+        VALUES('{$title}','{$description}',{$category},'{$date}',{$author},'{$img_name}');";
 $sql .= "UPDATE category SET post = post + 1 WHERE category_id = {$category}";        
 
 if(mysqli_multi_query($conn,$sql)){
