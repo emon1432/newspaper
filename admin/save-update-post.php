@@ -1,7 +1,7 @@
 <?php
 include 'config.php'; 
 if(empty($_FILES['new-image']['name'])){
-    $file_name = $_POST['old_image'];
+    $proper_img = $_POST['old_image'];
 }else{
     unlink("upload/".$_POST['old_image']);
     $errors = array();
@@ -21,7 +21,8 @@ if(empty($_FILES['new-image']['name'])){
         $errors[] = "File size must be 2mb or lower.";
     }
     $img_name = time(). "-".$file_name;
-    $target = "upload/". time(). "-".$file_name;
+    $target = "upload/".$img_name;
+    $proper_img = $img_name;
     if(empty($errors)==true){
         move_uploaded_file($file_tmp,$target);
     }
@@ -33,15 +34,17 @@ if(empty($_FILES['new-image']['name'])){
  $past_category = $_POST['past_cat_id'];
  $present_category = $_POST['category'];
 if($past_category==$present_category){
-    $sql = "UPDATE post SET title='{$_POST['post_title']}', description='{$_POST['postdesc']}',category={$_POST['category']},post_img='{$img_name}' 
+     $sql = "UPDATE post SET title='{$_POST['post_title']}', description='{$_POST['postdesc']}',category={$_POST['category']},post_img='{$proper_img}' 
     WHERE post_id={$_POST['post_id']}";
+    $result =mysqli_query($conn,$sql) or die("Query Failed!!!");
 }else{
-    $sql = "UPDATE post SET title='{$_POST['post_title']}', description='{$_POST['postdesc']}',category={$_POST['category']},post_img='{$img_name}' 
+   echo $sql = "UPDATE post SET title='{$_POST['post_title']}', description='{$_POST['postdesc']}',category={$_POST['category']},post_img='{$proper_img}' 
     WHERE post_id={$_POST['post_id']};";
     $sql .= "UPDATE category SET post = post + 1 WHERE category_id = {$present_category};";
     $sql .= "UPDATE category SET post = post - 1 WHERE category_id = {$past_category}";
+    $result =mysqli_multi_query($conn,$sql) or die("Query Failed!!!");
 }
-$result =mysqli_multi_query($conn,$sql) or die("Query Failed!!!");
+
 if($result){
     header("Location: {$hostname}/admin/post.php");
 }
