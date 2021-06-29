@@ -6,6 +6,7 @@
                 <!-- post-container -->
                 <div class="post-container">
                     <?php
+                    include "config.php";
                     if (isset($_GET['a_id'])) {
                         $auth_id = $_GET['a_id'];
                     }
@@ -13,11 +14,13 @@
                     ON post.author = user.user_id                    
                      WHERE post.author = {$auth_id}";
                     $result1 = mysqli_query($conn, $sql1) or die("Query Failed!!!");
-                    $row1 = mysqli_fetch_assoc($result1);  
-                    ?>
-                    <h2 class="page-heading"><?php echo $row1['first_name'] . " " . $row1['last_name']; ?></h2>
-                    <?php
-                    include "config.php";
+                    $row1 = mysqli_fetch_assoc($result1); 
+                    $sql2="SELECT user_id,first_name,last_name FROM user WHERE user_id={$auth_id}";
+                    $result2 = mysqli_query($conn,$sql2) or die("Querry Failed!!!");
+                    $row2 = mysqli_fetch_assoc($result2); 
+                    echo "<h2 class='page-heading'> {$row2['first_name']} {$row2['last_name']}</h2>";
+                    
+                    
                     if (isset($_GET['a_id'])) {
                         $auth_id = $_GET['a_id'];
                     }

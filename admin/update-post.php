@@ -5,7 +5,7 @@ if ($_SESSION["user_role"] == 0) {
     $sql2 = "SELECT author FROM post WHERE post_id = {$post_id}";
     $result2 = mysqli_query($conn, $sql2) or die("Query Failed!!!");
     $row2 = mysqli_fetch_assoc($result2);
-    if($row2['author']!=$_SESSION['user_id']){
+    if ($row2['author'] != $_SESSION['user_id']) {
         header("Location: {$hostname}/admin/post.php");
     }
 }
@@ -45,8 +45,8 @@ if ($_SESSION["user_role"] == 0) {
                             <div class="form-group">
                                 <label for="exampleInputPassword1"> Description</label>
                                 <textarea name="postdesc" class="form-control" required rows="5">
-                        <?php echo $row['description']; ?>
-                </textarea>
+                                <?php echo $row['description']; ?>
+                                </textarea>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputCategory">Category</label>

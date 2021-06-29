@@ -103,7 +103,8 @@
                         echo '</ul>';
                     }
                     ?>
-                </div><!-- /post-container -->
+                </div>
+                <!-- /post-container -->
             </div>
             <?php include 'sidebar.php'; ?>
         </div>

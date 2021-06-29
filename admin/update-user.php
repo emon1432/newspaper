@@ -5,14 +5,48 @@ if ($_SESSION["user_role"] == '0') {
 }
 if (isset($_POST['submit'])) {
     include 'config.php';
+
+    if(empty($_FILES['new-image']['name'])){
+        $proper_img = $_POST['old_image'];
+    }else{
+        unlink("author-images/".$_POST['old_image']);
+        $errors = array();
+        $file_name = $_FILES['new-image']['name'];
+        $file_size = $_FILES['new-image']['size'];
+        $file_tmp = $_FILES['new-image']['tmp_name'];
+        $file_type = $_FILES['new-image']['type'];
+        $exp = explode('.',$file_name);
+        $end = end($exp);
+        $file_ext = strtolower($end);
+        $extensions = array("jpeg","jpg","png");
+    
+        if(in_array($file_ext,$extensions) === false){
+            $errors[] = "This extension file not allowed, Please choose a JPG or PNG file.";
+        }
+        if($file_size > 2097152){
+            $errors[] = "File size must be 2mb or lower.";
+        }
+        $img_name = time(). "-".$file_name;
+        $target = "author-images/".$img_name;
+        $proper_img = $img_name;
+        if(empty($errors)==true){
+            move_uploaded_file($file_tmp,$target);
+        }
+        else{
+            print_r($errors);
+            die();
+        }
+    }
+
     $userid = mysqli_real_escape_string($conn, $_POST['user_id']);
     $fname = mysqli_real_escape_string($conn, $_POST['f_name']);
     $lname = mysqli_real_escape_string($conn, $_POST['l_name']);
     $user = mysqli_real_escape_string($conn, $_POST['username']);
+    $userdesc = mysqli_real_escape_string($conn, $_POST['userdesc']);
     // $password = mysqli_real_escape_string($conn, md5($_POST['password']));
     $role = mysqli_real_escape_string($conn, $_POST['role']);
 
-    $sql = "UPDATE user SET first_name = '{$fname}', last_name = '{$lname}', username = '{$user}', role = '{$role}' WHERE user_id = {$userid}";
+    $sql = "UPDATE user SET first_name = '{$fname}', last_name = '{$lname}', username = '{$user}', role = '{$role}',user_description='{$userdesc}',user_img='{$proper_img}' WHERE user_id = {$userid}";
     $result = mysqli_query($conn, $sql) or die("Query Failed!!!");
     if (mysqli_query($conn, $sql)) {
         header("Location: {$hostname}/admin/users.php");
@@ -37,7 +71,7 @@ if (isset($_POST['submit'])) {
                     while ($row = mysqli_fetch_assoc($result)) {
                 ?>
                         <!-- Form Start -->
-                        <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
+                        <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <input type="hidden" name="user_id" class="form-control" value="<?php echo $row['user_id']; ?>" placeholder="">
                             </div>
@@ -54,6 +88,12 @@ if (isset($_POST['submit'])) {
                                 <input type="text" name="username" class="form-control" value="<?php echo $row['username']; ?>" placeholder="" required>
                             </div>
                             <div class="form-group">
+                                <label for="exampleInputPassword1">About You</label>
+                                <textarea name="userdesc" class="form-control" required rows="5">
+                                <?php echo $row['user_description']; ?>
+                                </textarea>
+                            </div>
+                            <div class="form-group">
                                 <label>User Role</label>
                                 <select class="form-control" name="role" value="">
                                     <?php
@@ -66,6 +106,12 @@ if (isset($_POST['submit'])) {
                                     }
                                     ?>
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Your image</label>
+                                <input type="file" name="new-image">
+                                <img src="author-images/<?php echo $row['user_img']; ?>" height="150px">
+                                <input type="hidden" name="old_image" value="<?php echo $row['user_img']; ?>">
                             </div>
                             <input type="submit" name="submit" class="btn btn-primary" value="Update" required />
                         </form>

@@ -5,8 +5,21 @@
             <div class="col-md-8">
                 <!-- post-container -->
                 <div class="post-container">
+
                     <?php
                     include "config.php";
+                    if (isset($_GET['author-search'])) {
+                        $search_term = mysqli_real_escape_string($conn, $_GET['author-search']);
+                        echo "<h2 class='page-heading'>Search : {$search_term}</h2>";
+                    } else {
+                        $search_term = "";
+                        echo "<h2 class='page-heading'>All Authors</h2>";
+                    }
+                    
+                    if (isset($_GET['author-search'])) {
+                        $search_term = mysqli_real_escape_string($conn, $_GET['author-search']);
+                    }
+
                     $limit = 3;
                     if (isset($_GET['page'])) {
                         $page = $_GET['page'];
@@ -15,40 +28,32 @@
                     }
                     // session_start();
                     $offset = ($page - 1) * $limit;
-                    $sql = "SELECT * FROM post
-                        LEFT JOIN category ON post.category = category.category_id
-                        LEFT JOIN user ON post.author = user.user_id
-                        ORDER BY post_date DESC LIMIT {$offset},{$limit}";
+
+                    $sql = "SELECT * FROM user
+                            WHERE first_name LIKE '%{$search_term}%' OR last_name LIKE '%{$search_term}%' OR username LIKE '%{$search_term}%'
+                            LIMIT {$offset},{$limit}";
+
                     $result = mysqli_query($conn, $sql) or die("Query Failed!!!");
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
+
                     ?>
                             <div class="post-content">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <a class="post-img" href="single.php?cat_id=<?php echo $row['category']; ?>&id=<?php echo $row['post_id']; ?>"><img src="admin/upload/<?php echo $row['post_img']; ?>" alt="" /></a>
+                                        <a class="post-img" href=""><img src="admin/author-images/<?php echo $row['user_img']; ?>" alt="" /></a>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="inner-content clearfix">
-                                            <h3><a href='single.php?cat_id=<?php echo $row['category']; ?>&id=<?php echo $row['post_id']; ?>'><?php echo $row['title']; ?></a></h3>
                                             <div class="post-information">
                                                 <span>
-                                                    <i class="fa fa-tags" aria-hidden="true"></i>
-                                                    <a href='category.php?cat_id=<?php echo $row['category']; ?>'><?php echo $row['category_name']; ?></a>
+                                                    <h3><?php echo $row['first_name'] . " " . $row['last_name']; ?></h3><br>
                                                 </span>
                                                 <span>
-                                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                                    <a href='author.php?a_id=<?php echo $row['author']; ?>'><?php echo $row['first_name'] . " " . $row['last_name']; ?></a>
-                                                </span>
-                                                <span>
-                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                    <?php echo $row['post_date']; ?>
+                                                    <b><?php echo $row['user_description']; ?></b>
                                                 </span>
                                             </div>
-                                            <p class="description">
-                                                <?php echo substr($row['description'], 0, 130) . "..."; ?>
-                                            </p>
-                                            <a class='read-more pull-right' href='single.php?cat_id=<?php echo $row['category']; ?>&id=<?php echo $row['post_id']; ?>'>read more</a>
+                                            <a class='read-more pull-right' href='author.php?a_id=<?php echo $row['user_id']; ?>'>See all post</a>
                                         </div>
                                     </div>
                                 </div>
@@ -58,14 +63,19 @@
                     } else {
                         echo "<h2>NO RECORD FOUND</h2>";
                     }
-                    $sql1 = "SELECT * FROM post";
+
+                    $sql1 = "SELECT * FROM user
+                            WHERE first_name LIKE '%{$search_term}%' OR last_name LIKE '%{$search_term}%' OR username LIKE '%{$search_term}%'";
                     $result1 = mysqli_query($conn, $sql1) or die("Query Failed!!!");
+
+
                     if (mysqli_num_rows($result1) > 0) {
                         $total_records = mysqli_num_rows($result1);
+
                         $total_page = ceil($total_records / $limit);
                         echo '<ul class="pagination admin-pagination">';
                         if ($page > 1) {
-                            echo '<li><a href="index.php?page=' . ($page - 1) . '">Prev</a></li>';
+                            echo '<li><a href="author-search.php?author-search=' . $search_term . '&page=' . ($page - 1) . '">Prev</a></li>';
                         }
                         for ($i = 1; $i <= $total_page; $i++) {
                             if ($i == $page) {
@@ -73,15 +83,16 @@
                             } else {
                                 $active = '';
                             }
-                            echo '<li class="' . $active . '"><a href="index.php?page=' . $i . '">' . $i . '</a></li>';
+                            echo '<li class="' . $active . '"><a href="author-search.php?author-search=' . $search_term . '&page=' . $i . '">' . $i . '</a></li>';
                         }
                         if ($total_page > $page) {
-                            echo '<li><a href="index.php?page=' . ($page + 1) . '">Next</a></li>';
+                            echo '<li><a href="author-search.php?author-search=' . $search_term . '&page=' . ($page + 1) . '">Next</a></li>';
                         }
                         echo '</ul>';
                     }
                     ?>
-                </div><!-- /post-container -->
+                </div>
+                <!-- /post-container -->
             </div>
             <?php include 'sidebar.php'; ?>
         </div>

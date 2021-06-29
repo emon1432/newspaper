@@ -1,10 +1,11 @@
 <div id="sidebar" class="col-md-4">
+
     <!-- search box -->
     <div class="search-box-container">
-        <h4>Search</h4>
+        <h4>Search Post</h4>
         <form class="search-post" action="search.php" method="GET">
             <div class="input-group">
-                <input type="text" name="search" class="form-control" placeholder="Title or Category">
+                <input type="text" name="search" class="form-control" placeholder="Title or Category" required>
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-danger">Search</button>
                 </span>
@@ -12,8 +13,9 @@
         </form>
     </div>
     <!-- /search box -->
+
     <!-- recent posts box -->
-    <div class="recent-post-container">
+    <div class="recent-post-container" style="margin-bottom: 30px;">
         <h4>Recent Posts</h4>
         <?php
         include "config.php";
@@ -51,4 +53,19 @@
 
     </div>
     <!-- /recent posts box -->
+    <!-- Authors List  -->
+    <div class="search-box-container">
+        <h4>Search Authors</h4>
+        <form class="search-post" action="author-search.php" method="GET">
+            <div class="input-group">
+                <input type="text" name="author-search" class="form-control" placeholder="Author Name" required>
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-danger">Search</button>
+                </span>
+            </div>
+        </form>
+        <input type="hidden" name="author-search" class="form-control">
+        <a href="author-search.php"><button style="display: block;margin-left: auto;margin-right: auto; margin-top:20px; color:#1e90ff" class="btn "><b>See all authors</b></button></a>
+    </div>
+    <!-- /Authors List  -->
 </div>
