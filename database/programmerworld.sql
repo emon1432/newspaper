@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 27, 2021 at 10:14 PM
+-- Generation Time: Jun 30, 2021 at 01:55 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -116,22 +116,24 @@ CREATE TABLE `user` (
   `last_name` varchar(30) NOT NULL,
   `username` varchar(30) DEFAULT NULL,
   `password` varchar(40) DEFAULT NULL,
-  `role` int(11) NOT NULL
+  `role` int(11) NOT NULL,
+  `user_description` varchar(1000) DEFAULT NULL,
+  `user_img` varchar(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `username`, `password`, `role`) VALUES
-(1, 'Md.khairul Islam', 'Emon', 'e_mon', 'e10adc3949ba59abbe56e057f20f883e', 1),
-(2, 'Sharmin Akter', 'Adhora', 'adhoramon', 'e10adc3949ba59abbe56e057f20f883e', 0),
-(3, 'Abu Huzaifa ', 'As-Sahmi', 'saikat', 'e10adc3949ba59abbe56e057f20f883e', 0),
-(4, 'Priyanka Rani', 'Ghosh', 'pghosh', 'e10adc3949ba59abbe56e057f20f883e', 0),
-(5, 'Naimul Islam', 'Naim', 'naimon', 'e10adc3949ba59abbe56e057f20f883e', 0),
-(6, 'Alem Hossain', 'Hasib', 'lms', 'e10adc3949ba59abbe56e057f20f883e', 0),
-(7, 'Ayesha Akter', 'Toma', 'shadhona', 'e10adc3949ba59abbe56e057f20f883e', 0),
-(8, 'Fatiha', 'Roza', 'fatiha', 'e10adc3949ba59abbe56e057f20f883e', 0);
+INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `username`, `password`, `role`, `user_description`, `user_img`) VALUES
+(1, 'Md.khairul Islam', 'Emon', 'e_mon', 'e10adc3949ba59abbe56e057f20f883e', 1, 'Institute of Science and Technology.\nWeb Designer and Developer', '1625052810-91431231_2615989608677030_6041738415202893824_n.jpg'),
+(2, 'Sharmin Akter', 'Adhora', 'adhoramon', 'e10adc3949ba59abbe56e057f20f883e', 0, 'Freelancer', '1625053238-139220426_1126182827822587_7991243608775397899_n.jpg'),
+(3, 'Abu Huzaifa ', 'As-Sahmi', 'saikat', 'e10adc3949ba59abbe56e057f20f883e', 0, 'Competitive Programmer', '1625053439-82490784_578743909629696_6403017350311837696_n.jpg'),
+(4, 'Priyanka Rani', 'Ghosh', 'pghosh', 'e10adc3949ba59abbe56e057f20f883e', 0, 'Web Designer and Developer.                                ', '1625052499-120083275_943318016167199_897179719742729690_n.jpg'),
+(5, 'Naimul Islam', 'Naim', 'naimon', 'e10adc3949ba59abbe56e057f20f883e', 0, 'UX/UI Designer', '1625052713-131781442_719131651919583_5224782275310576494_n.jpg'),
+(6, 'Alem Hossain', 'Hasib', 'lms', 'e10adc3949ba59abbe56e057f20f883e', 0, 'Node js and javascript Developer', '1625050941-28559813.jpeg'),
+(7, 'Ayesha Akter', 'Toma', 'shadhona', 'e10adc3949ba59abbe56e057f20f883e', 0, 'Python Developer', '1625053598-72312900_471478406794380_7744764635366031360_n.jpg'),
+(8, 'Fatiha', 'Roza', 'fatiha', 'e10adc3949ba59abbe56e057f20f883e', 0, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -170,13 +172,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
