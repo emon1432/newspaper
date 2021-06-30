@@ -12,13 +12,13 @@
                         $search_term = mysqli_real_escape_string($conn, $_GET['author-search']);
                         echo "<h2 class='page-heading'>Search : {$search_term}</h2>";
                     } else {
-                        $search_term = "";
+                        $search_term = null;
                         echo "<h2 class='page-heading'>All Authors</h2>";
                     }
-                    
-                    if (isset($_GET['author-search'])) {
-                        $search_term = mysqli_real_escape_string($conn, $_GET['author-search']);
-                    }
+
+                    // if (isset($_GET['author-search'])) {
+                    //     $search_term = mysqli_real_escape_string($conn, $_GET['author-search']);
+                    // }
 
                     $limit = 3;
                     if (isset($_GET['page'])) {
@@ -41,16 +41,17 @@
                             <div class="post-content">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <a class="post-img" href=""><img src="admin/author-images/<?php echo $row['user_img']; ?>" alt="" /></a>
+                                        <a class="post-img" href=""><img style="height: 100%; width: 100%; object-fit:cover;" src="admin/author-images/<?php echo $row['user_img']; ?>" alt="" /></a>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="inner-content clearfix">
                                             <div class="post-information">
                                                 <span>
-                                                    <h3><?php echo $row['first_name'] . " " . $row['last_name']; ?></h3><br>
+                                                    <h3><?php echo $row['first_name'] . " " . $row['last_name']; ?></h3>
                                                 </span>
+                                                <br>
                                                 <span>
-                                                    <b><?php echo $row['user_description']; ?></b>
+                                                    <p><?php echo $row['user_description']; ?></p>
                                                 </span>
                                             </div>
                                             <a class='read-more pull-right' href='author.php?a_id=<?php echo $row['user_id']; ?>'>See all post</a>
@@ -75,7 +76,7 @@
                         $total_page = ceil($total_records / $limit);
                         echo '<ul class="pagination admin-pagination">';
                         if ($page > 1) {
-                            echo '<li><a href="author-search.php?author-search=' . $search_term . '&page=' . ($page - 1) . '">Prev</a></li>';
+                            echo '<li><a href="author-search.php?page=' . ($page - 1) . '">Prev</a></li>';
                         }
                         for ($i = 1; $i <= $total_page; $i++) {
                             if ($i == $page) {
@@ -83,10 +84,10 @@
                             } else {
                                 $active = '';
                             }
-                            echo '<li class="' . $active . '"><a href="author-search.php?author-search=' . $search_term . '&page=' . $i . '">' . $i . '</a></li>';
+                            echo '<li class="' . $active . '"><a href="author-search.php?page=' . $i . '">' . $i . '</a></li>';
                         }
                         if ($total_page > $page) {
-                            echo '<li><a href="author-search.php?author-search=' . $search_term . '&page=' . ($page + 1) . '">Next</a></li>';
+                            echo '<li><a href="author-search.php?page=' . ($page + 1) . '">Next</a></li>';
                         }
                         echo '</ul>';
                     }
