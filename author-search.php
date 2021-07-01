@@ -41,7 +41,7 @@
                             <div class="post-content">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <a class="post-img" href=""><img style="height: 100%; width: 100%; object-fit:cover;" src="admin/author-images/<?php echo $row['user_img']; ?>" alt="" /></a>
+                                        <div class="post-img" ><img style="height: 100%; width: 100%; object-fit:cover;" src="admin/author-images/<?php echo $row['user_img']; ?>" alt="" /></div>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="inner-content clearfix">
