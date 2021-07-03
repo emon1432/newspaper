@@ -31,7 +31,7 @@
                             LEFT JOIN category ON post.category = category.category_id
                             LEFT JOIN user ON post.author = user.user_id
                             WHERE post.title LIKE '%{$search_term}%' OR category.category_name LIKE '%{$search_term}%'
-                            ORDER BY post_id DESC LIMIT {$offset},{$limit}";
+                            ORDER BY category.category_name ASC LIMIT {$offset},{$limit}";
 
                     $result = mysqli_query($conn, $sql) or die("Query Failed!!!");
                     if (mysqli_num_rows($result) > 0) {
