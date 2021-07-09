@@ -25,7 +25,7 @@
 
         $sql = "SELECT * FROM post
             LEFT JOIN category ON post.category = category.category_id
-            ORDER BY post_date DESC LIMIT {$limit}";
+            ORDER BY post_date ASC LIMIT {$limit}";
 
         $result = mysqli_query($conn, $sql) or die("Query Failed!!!");
         if (mysqli_num_rows($result) > 0) {

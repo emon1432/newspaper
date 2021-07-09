@@ -18,7 +18,7 @@
                     $sql = "SELECT * FROM post
                         LEFT JOIN category ON post.category = category.category_id
                         LEFT JOIN user ON post.author = user.user_id
-                        ORDER BY post_date DESC LIMIT {$offset},{$limit}";
+                        ORDER BY post_date ASC LIMIT {$offset},{$limit}";
                     $result = mysqli_query($conn, $sql) or die("Query Failed!!!");
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
